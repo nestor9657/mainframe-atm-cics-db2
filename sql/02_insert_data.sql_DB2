@@ -1,0 +1,115 @@
+ -- 1. CLIENTES                                                          
+ INSERT INTO BANC_CLIENTE                                                
+     (NUM_CUENTA, DNI, NOMBRE, APELLIDOS, FECHA_ALTA, ESTADO)            
+ VALUES                                                                  
+     ('0000000001', '12345678A', 'NESTOR', 'GARCIA',                     
+      '2026-09-01', 'A');                                                
+ INSERT INTO BANC_CLIENTE                                                
+     (NUM_CUENTA, DNI, NOMBRE, APELLIDOS, FECHA_ALTA, ESTADO)            
+ VALUES                                                                  
+     ('0000000002', '87654321B', 'MARIA', 'LOPEZ',                       
+      '2026-09-02', 'A');                                                
+ -- 2. CUENTAS                                                           
+ INSERT INTO BANC_CUENTA                                                 
+  (NUM_CUENTA, TIPO_CUENTA, SALDO, DIVISA, LIMITE_DIARIO, FECHA_ULT_MOV) 
+                                                                         
+ VALUES                                                                  
+     ('0000000001', 'CC', 1500.00, 'EUR', 600.00,                        
+      '2026-09-12');                                                     
+ INSERT INTO BANC_CUENTA                                                 
+  (NUM_CUENTA, TIPO_CUENTA, SALDO, DIVISA, LIMITE_DIARIO, FECHA_ULT_MOV) 
+                                                                         
+ VALUES                                                                  
+     ('0000000002', 'CC', 850.00, 'EUR', 600.00,                         
+       '2026-09-12');                                                    
+ -- 3. MOVIMIENTOS                                                       
+ INSERT INTO BANC_MOVIMIENTO                                             
+     (NUM_CUENTA, FECHA_MOV, TIPO_MOV, IMPORTE,                          
+      SALDO_RESULT, CONCEPTO)                                            
+ VALUES                                                                  
+     ('0000000001', '2026-09-10',                                        
+      'IN', 1800.00, 1800.00, 'NOMINA SEPTIEMBRE');                      
+ INSERT INTO BANC_MOVIMIENTO                                             
+     (NUM_CUENTA, FECHA_MOV, TIPO_MOV, IMPORTE,                          
+      SALDO_RESULT, CONCEPTO)                                            
+ VALUES                                                                  
+   ('0000000001', '2026-09-11','CO',                                     
+       -300.00, 1500.00, 'RECIBO DOMICILIADO');                          
+ INSERT INTO BANC_MOVIMIENTO                                              
+     (NUM_CUENTA, FECHA_MOV, TIPO_MOV, IMPORTE,                  
+      SALDO_RESULT, CONCEPTO)                                    
+ VALUES                                                          
+    ('0000000002', '2026-09-10',                                 
+     'IN', 850.00, 850.00, 'INGRESO EFECTIVO');                  
+ -- 4. RETIRADAS                                                 
+ INSERT  INTO BANC_RETIRADA                                      
+    (NUM_CUENTA, FECHA_RET, IMPORTE, TIPO_DISP,                  
+     TERMINAL, ESTADO)                                           
+ VALUES                                                          
+    ('0000000001', '2026-09-12',                                 
+     100.00, 'CA', 'BANC', 'R');                                 
+ INSERT INTO BANC_RETIRADA                                       
+    (NUM_CUENTA, FECHA_RET, IMPORTE, TIPO_DISP,                  
+     TERMINAL, ESTADO)                                           
+ VALUES                                                          
+    ('0000000002', '2026-09-12',                                 
+     50.00, 'CA', 'BANC', 'P');                                  
+ -- 5. INGRESOS                                                  
+ INSERT INTO BANC_INGRESO                                        
+    (NUM_CUENTA, FECHA_ING, IMPORTE, FORMA_PAGO,                 
+     ORDENANTE, ESTADO)                                          
+ VALUES                                                          
+    ('0000000001', '2026-09-12',                                 
+     200.00, 'EF', 'NESTOR GARCIA', 'R');                        
+ INSERT INTO BANC_INGRESO                                        
+    (NUM_CUENTA, FECHA_ING, IMPORTE, FORMA_PAGO,                 
+     ORDENANTE, ESTADO)                                          
+ VALUES                                                          
+    ('0000000002', '2026-09-12',                                 
+     100.00, 'EF', 'MARIA LOPEZ', 'P');                          
+  -- 6. OTRAS OPERACIONES                                        
+  INSERT INTO BANC_OTRAS_OPER                                    
+      (NUM_CUENTA, FECHA_OPER, TIPO_OPER, IMPORTE,               
+       BENEFICIARIO, DETALLE, ESTADO)                            
+  VALUES                                                         
+      ('0000000001', '2026-09-12',                               
+       'TRF', 250.00, 'MARIA LOPEZ',                             
+       'TRANSFERENCIA INTERNA', 'R');                            
+      ORDENANTE, ESTADO)                                  
+ VALUES                                                  
+    ('0000000002', '2026-09-12',                         
+     100.00, 'EF', 'MARIA LOPEZ', 'P');                  
+  -- 6. OTRAS OPERACIONES                                
+  INSERT INTO BANC_OTRAS_OPER                            
+      (NUM_CUENTA, FECHA_OPER, TIPO_OPER, IMPORTE,       
+       BENEFICIARIO, DETALLE, ESTADO)                    
+  VALUES                                                 
+      ('0000000001', '2026-09-12',                       
+       'TRF', 250.00, 'MARIA LOPEZ',                     
+       'TRANSFERENCIA INTERNA', 'R');                    
+  -- 7. OPCIONES DEL CAJERO                              
+ INSERT INTO BANC_OPCIONES                               
+     (OPCION, DESCRIPCION, PROGRAMA_CICS,                
+      TRANSACCION, ACTIVA)                               
+ VALUES                                                  
+     ('01', 'CONSULTAR SALDO Y MOVIM.', 'BANC0001',      
+      'BA01', 'S');                                      
+ INSERT INTO BANC_OPCIONES                               
+     (OPCION, DESCRIPCION, PROGRAMA_CICS,                
+      TRANSACCION, ACTIVA)                               
+ VALUES                                                  
+     ('02', 'RETIRAR EFECTIVO', 'BANC0002',              
+      'BA02', 'S');                                      
+ INSERT INTO BANC_OPCIONES                               
+     (OPCION, DESCRIPCION, PROGRAMA_CICS,                
+      TRANSACCION, ACTIVA)                               
+ VALUES                                                  
+     ('03', 'INGRESAR DINERO', 'BANC0003',               
+      'BA03', 'S');                                      
+ INSERT INTO BANC_OPCIONES                               
+     (OPCION, DESCRIPCION, PROGRAMA_CICS,                
+      TRANSACCION, ACTIVA)                               
+ VALUES                                                  
+     ('04', 'OTRAS OPERACIONES', 'BANC0004',             
+      'BA04', 'S');                                      
+ COMMIT;                                                 
