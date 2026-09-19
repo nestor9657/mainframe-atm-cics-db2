@@ -1,0 +1,7 @@
+      01  CA-COMMAREA.                                        
+         05  CA-ESTADO-CST        PIC X(02).                  
+         05  CA-OPCION-SELECC     PIC X(02).                  
+         05  CA-DATOS-SESION.                                 
+            10  CA-NUMERO-CUENTA     PIC X(10).               
+            10  CA-SALDO-ACTUAL      PIC S9(7)V99 COMP-3.     
+         05  FILLER       PIC X(36).                          
