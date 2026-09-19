@@ -1,0 +1,5 @@
+ --  SPUFI CREATE DATABASE           
+     CREATE DATABASE IBMUSER1        
+     BUFFERPOOL BP1                  
+     CCSID  UNICODE                  
+     STOGROUP IBMUSER1;              
