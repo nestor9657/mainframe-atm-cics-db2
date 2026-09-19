@@ -1,0 +1,180 @@
+ CREATE TABLE BANC_CLIENTE                         
+ (                                                 
+     NUM_CUENTA CHAR(10)    NOT NULL,              
+     DNI        CHAR(09)    NOT NULL,              
+     NOMBRE     VARCHAR(40) NOT NULL,              
+     APELLIDOS  VARCHAR(60) NOT NULL,              
+     FECHA_ALTA DATE        NOT NULL,              
+     ESTADO     CHAR(01)    NOT NULL DEFAULT 'A',  
+     PRIMARY KEY (NUM_CUENTA)                      
+ )                                                 
+ IN IBMUSER1.CLIENTES;                             
+ CREATE UNIQUE INDEX IDX_BANC_CLIENTE_DNI          
+     ON BANC_CLIENTE (DNI);                        
+ 
+
+ CREATE TABLE BANC_CUENTA                                    
+ (                                                           
+     NUM_CUENTA     CHAR(10)      NOT NULL,                  
+     TIPO_CUENTA    CHAR(02)      NOT NULL,                  
+     SALDO          DECIMAL(12,2) NOT NULL DEFAULT 0,        
+     DIVISA         CHAR(03)      NOT NULL DEFAULT 'EUR',    
+     LIMITE_DIARIO  DECIMAL(12,2) NOT NULL DEFAULT 600.00,   
+     FECHA_ULT_MOV  DATE          NOT NULL,                  
+     PRIMARY KEY (NUM_CUENTA),                               
+     FOREIGN KEY (NUM_CUENTA)                                
+         REFERENCES BANC_CLIENTE (NUM_CUENTA)                
+ )                                                           
+   IN IBMUSER1.CLIENTES;                                     
+   CREATE UNIQUE INDEX IDX_BANC_CUENTA_IPK                   
+   ON BANC_CUENTA                                            
+ (                                                           
+     NUM_CUENTA                                              
+ );                                                          
+
+
+
+CREATE TABLE BANC_INGRESO                                
+(                                                        
+    ID_INGRESO INTEGER NOT NULL                          
+                 GENERATED ALWAYS AS IDENTITY,           
+    NUM_CUENTA CHAR(10)      NOT NULL,                   
+    FECHA_ING  DATE          NOT NULL,                   
+    IMPORTE    DECIMAL(10,2) NOT NULL,                   
+    FORMA_PAGO CHAR(02)      NOT NULL,                   
+    ORDENANTE  VARCHAR(60),                              
+    ESTADO     CHAR(01)      NOT NULL DEFAULT 'P',       
+    PRIMARY KEY (ID_INGRESO),                            
+    FOREIGN KEY (NUM_CUENTA)                             
+        REFERENCES BANC_CUENTA (NUM_CUENTA)              
+)                                                        
+IN IBMUSER1.CLIENTES;                                    
+CREATE UNIQUE INDEX BANC_INGRESO_IPK                     
+ON BANC_INGRESO                                          
+(                                                        
+    ID_INGRESO                                           
+);                                                       
+CREATE INDEX BANC_INGRESO_CTA                            
+ON BANC_INGRESO                                          
+(                                                        
+    NUM_CUENTA                                           
+);                                                       
+
+
+
+
+ 
+ CREATE TABLE BANC_MOVIMIENTO                            
+ (                                                       
+     ID_MOVIMIENTO INTEGER NOT NULL                      
+                    GENERATED ALWAYS AS IDENTITY,        
+     NUM_CUENTA   CHAR(10)      NOT NULL,                
+     FECHA_MOV    DATE          NOT NULL,                
+     TIPO_MOV     CHAR(02)      NOT NULL,                
+     IMPORTE      DECIMAL(12,2) NOT NULL,                
+     SALDO_RESULT DECIMAL(12,2) NOT NULL,                
+     CONCEPTO     VARCHAR(40)   NOT NULL,                
+     PRIMARY KEY (ID_MOVIMIENTO),                        
+     FOREIGN KEY (NUM_CUENTA)                            
+         REFERENCES BANC_CUENTA (NUM_CUENTA)             
+ )                                                       
+ IN IBMUSER1.CLIENTES;                                   
+ CREATE UNIQUE INDEX BANC_MOVIMIENTO_IPK                 
+ ON BANC_MOVIMIENTO                                      
+ (                                                       
+     ID_MOVIMIENTO                                       
+ );                                                      
+ CREATE INDEX BANC_MOVIMIENTO_CTA                        
+ ON BANC_MOVIMIENTO                                      
+ (                                                       
+     NUM_CUENTA                                          
+ );                                                  
+
+
+
+
+CREATE TABLE BANC_OPCIONES                                    
+(                                                             
+    OPCION        CHAR(02)    NOT NULL,                       
+    DESCRIPCION   VARCHAR(60) NOT NULL,                       
+    PROGRAMA_CICS CHAR(08)    NOT NULL,                       
+    TRANSACCION   CHAR(04)    NOT NULL,                       
+    ACTIVA        CHAR(01)    NOT NULL DEFAULT 'S',           
+    PRIMARY KEY (OPCION)                                      
+)                                                             
+IN IBMUSER1.CLIENTES;                                         
+CREATE UNIQUE INDEX BANC_OPCIONES_IPK                         
+ON BANC_OPCIONES                                              
+(                                                             
+    OPCION                                                    
+);                                                            
+CREATE UNIQUE INDEX BANC_OPCIONES_TRN                         
+ON BANC_OPCIONES                                              
+(                                                             
+    TRANSACCION     
+ ); 
+
+
+
+
+
+
+
+CREATE TABLE BANC_OTRAS_OPER                                         
+(                                                                    
+    ID_OPER      INTEGER NOT NULL                                    
+                   GENERATED ALWAYS AS IDENTITY,                     
+    NUM_CUENTA   CHAR(10)      NOT NULL,                             
+    FECHA_OPER   DATE          NOT NULL,                             
+    TIPO_OPER    CHAR(03)      NOT NULL,                             
+    IMPORTE      DECIMAL(12,2),                                      
+    BENEFICIARIO VARCHAR(60),                                        
+    DETALLE      VARCHAR(80),                                        
+    ESTADO       CHAR(01)      NOT NULL DEFAULT 'P',                 
+    PRIMARY KEY (ID_OPER),                                           
+    FOREIGN KEY (NUM_CUENTA)                                         
+        REFERENCES BANC_CUENTA (NUM_CUENTA)                          
+)                                                                    
+IN IBMUSER1.CLIENTES;                                                
+CREATE UNIQUE INDEX BANC_OTRAS_OPER_IPK                              
+ON BANC_OTRAS_OPER                                                   
+(                                                                    
+    ID_OPER                                                          
+);                                                                   
+CREATE INDEX BANC_OTRAS_OPER_CTA                                     
+ON BANC_OTRAS_OPER                                                   
+(                                                                    
+    NUM_CUENTA                                                       
+);                                                                   
+ 
+ 
+
+
+
+
+CREATE TABLE BANC_RETIRADA                                  
+(                                                           
+    ID_RETIRADA INTEGER NOT NULL                            
+                  GENERATED ALWAYS AS IDENTITY,             
+    NUM_CUENTA CHAR(10)      NOT NULL,                      
+    FECHA_RET  DATE          NOT NULL,                      
+    IMPORTE    DECIMAL(10,2) NOT NULL,                      
+    TIPO_DISP   CHAR(02)     NOT NULL,                      
+    TERMINAL    CHAR(04),                                   
+    ESTADO      CHAR(01)     NOT NULL DEFAULT 'P',          
+    PRIMARY KEY (ID_RETIRADA),                              
+    FOREIGN KEY (NUM_CUENTA)                                
+        REFERENCES BANC_CUENTA (NUM_CUENTA)                 
+)                                                           
+IN IBMUSER1.CLIENTES;                                       
+CREATE UNIQUE INDEX BANC_RETIRADA_IPK                       
+ON BANC_RETIRADA                                            
+(                                                           
+    ID_RETIRADA                                             
+);                                                          
+CREATE INDEX BANC_RETIRADA_CTA                              
+ON BANC_RETIRADA                                            
+(                                                           
+    NUM_CUENTA                                              
+);                                                          
+ 
