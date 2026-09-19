@@ -1,0 +1,66 @@
+BANC     DFHMSD TYPE=&SYSPARM,MODE=INOUT,LANG=COBOL,STORAGE=AUTO        
+MAP1     DFHMDI SIZE=(24,80),TIOAPFX=YES,CTRL=(FREEKB,FRSET)            
+                                                                        
+                                                                        
+*=== CABECERA EN ART ASCII "BANC" (FILAS 02 A 06) ===*                  
+                                                                        
+LOGO_F1  DFHMDF POS=(02,03),LENGTH=27,ATTRB=(PROT,BRT),COLOR=TURQUOISE,X
+               INITIAL=' ____    _    _   _  ____  '                    
+LOGO_F2  DFHMDF POS=(03,03),LENGTH=27,ATTRB=(PROT,BRT),COLOR=TURQUOISE,X
+               INITIAL='| __ )  / \  | \ | |/ ___| '                    
+LOGO_F3  DFHMDF POS=(04,03),LENGTH=27,ATTRB=(PROT,BRT),COLOR=TURQUOISE,X
+               INITIAL='|  _ \ / _ \ |  \| | |     '                    
+LOGO_F4  DFHMDF POS=(05,03),LENGTH=27,ATTRB=(PROT,BRT),COLOR=TURQUOISE,X
+               INITIAL='| |_) / ___ \| |\  | |___  '                    
+LOGO_F5  DFHMDF POS=(06,03),LENGTH=27,ATTRB=(PROT,BRT),COLOR=TURQUOISE,X
+               INITIAL='|____/_/   \_\_| \_|\____| '                    
+                                                                        
+*=== TEXTO DE BIENVENIDA Y SEPARADOR ===*                               
+                                                                        
+SUBTIT   DFHMDF POS=(08,06),LENGTH=37,ATTRB=(PROT,BRT),COLOR=BLUE,     X
+               INITIAL='BIENVENIDO AL SISTEMA DE AUTOSERVICIO'          
+LINEA1   DFHMDF POS=(09,06),LENGTH=56,ATTRB=(PROT,BRT),COLOR=BLUE,     X
+               INITIAL='--------------------------------------------'   
+                                                                        
+*=== MENÚ DE OPCIONES DEL CAJERO (DESPLAZADO A LAS FILAS 11-17) ===*    
+                                                                        
+M_OPC1   DFHMDF POS=(11,06),LENGTH=32,ATTRB=(PROT,NORM),COLOR=YELLOW,  X
+               INITIAL='   1. CONSULTAR SALDO Y MOVIM.'                 
+                                                                        
+M_OPC2   DFHMDF POS=(13,06),LENGTH=23,ATTRB=(PROT,NORM),COLOR=YELLOW,  X
+               INITIAL='   2. RETIRAR EFECTIVO'                         
+                                                                        
+M_OPC3   DFHMDF POS=(15,06),LENGTH=22,ATTRB=(PROT,NORM),COLOR=YELLOW,  X
+               INITIAL='   3. INGRESAR DINERO'                          
+                                                                        
+M_OPC4   DFHMDF POS=(17,06),LENGTH=24,ATTRB=(PROT,NORM),COLOR=YELLOW,  X
+               INITIAL='   4. OTRAS OPERACIONES' 
+                                                                         
+ *=== LÍNEA INFERIOR Y CAPTURA DE LA OPCIÓN ===*                         
+                                                                         
+ LINEA2   DFHMDF POS=(19,06),LENGTH=56,ATTRB=(PROT,BRT),COLOR=BLUE,     X
+                INITIAL='-------------------------------------'          
+                                                                         
+ SEL_LBL  DFHMDF POS=(20,06),LENGTH=28,ATTRB=(PROT,BRT),COLOR=RED,      X
+                INITIAL='SELECCIONA UNA OPCION (1-4):'                   
+                                                                         
+ SEL_VAL  DFHMDF POS=(20,35),LENGTH=02,ATTRB=(UNPROT,NUM),COLOR=RED,    X
+                INITIAL='______'                                         
+                                                                         
+                                                                         
+ *=== MENSAJES DE SISTEMA Y PIE DE PANTALLA ===*                         
+                                                                         
+ MSG_LBL  DFHMDF POS=(22,06),LENGTH=09,ATTRB=(PROT,BRT),COLOR=BLUE,     X
+                INITIAL='MENSAJE:'                                       
+                                                                         
+ MENSAJE  DFHMDF POS=(22,16),LENGTH=50,ATTRB=(PROT,BRT),COLOR=BLUE,     X
+                INITIAL=' '                                              
+ AYUDA    DFHMDF POS=(23,06),LENGTH=60,ATTRB=(PROT,NORM),COLOR=BLUE,    X
+                INITIAL='F3=SALIR / CANCELAR'                            
+                                                                         
+                                                                         
+ CONTROL  DFHMDF POS=(23,69),LENGTH=02,ATTRB=(UNPROT,FSET),COLOR=GREEN, X
+                INITIAL='  '                                             
+                                                                         
+          DFHMSD TYPE=FINAL                                              
+          END                                                             			   
