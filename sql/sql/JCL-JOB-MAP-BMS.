@@ -1,0 +1,64 @@
+//BANC     JOB (IBMUSER),'BANC',CLASS=A,MSGCLASS=A,REGION=0M,          
+//             MSGLEVEL=(1,1),NOTIFY=&SYSUID                           
+//*                                                                    
+//*===============================================================     
+//* ENSAMBLAR MAPA BMS                                                 
+//*===============================================================     
+//COMPIL   EXEC PGM=ASMA90,REGION=2000K,                               
+//             PARM='SYSPARM(MAP),DECK,NOOBJECT,FLAG(20)'              
+//SYSLIB   DD DSN=DFH410.CICS.SDFHMAC,DISP=SHR                         
+//         DD DSN=SYS1.MACLIB,DISP=SHR                                 
+//SYSUT1   DD UNIT=SYSDA,SPACE=(CYL,(5,5))                             
+//SYSUT2   DD UNIT=SYSDA,SPACE=(CYL,(5,5))                             
+//SYSUT3   DD UNIT=SYSDA,SPACE=(CYL,(5,5))                             
+//SYSPUNCH DD DSN=&&LOADSET,DISP=(NEW,PASS),                           
+//             UNIT=SYSDA,SPACE=(CYL,(5,5)),                           
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=400)                      
+//SYSIN    DD DSN=IBMUSER.NESTOR.MAPS(BANC),DISP=SHR                   
+//SYSPRINT DD SYSOUT=A                                                 
+//SYSUDUMP DD SYSOUT=*                                                 
+//*                                                                    
+//*===============================================================     
+//* LINK-EDITAR MAPA FISICO                                            
+//*===============================================================     
+//LKED     EXEC PGM=IEWL,PARM='LIST,XREF,LET,AMODE=31,RMODE=ANY',      
+//             COND=(4,LT,COMPIL)                                      
+//SYSLIN   DD DSN=&&LOADSET,DISP=(OLD,DELETE)                          
+//SYSLMOD  DD DSN=IBMUSER.NESTOR.LOAD(BANC),DISP=SHR                   
+//SYSUT1   DD UNIT=SYSDA,SPACE=(TRK,(5,5))                             
+//SYSPRINT DD SYSOUT=A                                                 
+//SYSUDUMP DD SYSOUT=*                                                 
+//*                                                                    
+//*===============================================================     
+//* GENERAR MAPA SIMBOLICO / COPYBOOK                                  
+//*===============================================================     
+//ASMDSECT EXEC PGM=ASMA90,REGION=2000K,                               
+//             PARM='SYSPARM(DSECT),DECK,NOOBJECT'                     
+//SYSPRINT DD SYSOUT=A                                                 
+//SYSLIB   DD DSN=DFH410.CICS.SDFHMAC,DISP=SHR    
+//SYSUDUMP DD SYSOUT=*                                                 
+//*                                                                    
+//*===============================================================     
+//* LINK-EDITAR MAPA FISICO                                            
+//*===============================================================     
+//LKED     EXEC PGM=IEWL,PARM='LIST,XREF,LET,AMODE=31,RMODE=ANY',      
+//             COND=(4,LT,COMPIL)                                      
+//SYSLIN   DD DSN=&&LOADSET,DISP=(OLD,DELETE)                          
+//SYSLMOD  DD DSN=IBMUSER.NESTOR.LOAD(BANC),DISP=SHR                   
+//SYSUT1   DD UNIT=SYSDA,SPACE=(TRK,(5,5))                             
+//SYSPRINT DD SYSOUT=A                                                 
+//SYSUDUMP DD SYSOUT=*                                                 
+//*                                                                    
+//*===============================================================     
+//* GENERAR MAPA SIMBOLICO / COPYBOOK                                  
+//*===============================================================     
+//ASMDSECT EXEC PGM=ASMA90,REGION=2000K,                               
+//             PARM='SYSPARM(DSECT),DECK,NOOBJECT'                     
+//SYSPRINT DD SYSOUT=A                                                 
+//SYSLIB   DD DSN=DFH410.CICS.SDFHMAC,DISP=SHR                         
+//         DD DSN=SYS1.MACLIB,DISP=SHR                                 
+//SYSUT1   DD UNIT=SYSDA,SPACE=(TRK,(5,5))                             
+//SYSUT2   DD UNIT=SYSDA,SPACE=(TRK,(5,5))                             
+//SYSUT3   DD UNIT=SYSDA,SPACE=(TRK,(5,5))                             
+//SYSPUNCH DD DSN=IBMUSER.NESTOR.COPYS(BANC),DISP=SHR                  
+//SYSIN    DD DSN=IBMUSER.NESTOR.MAPS(BANC),DISP=SHR                   
