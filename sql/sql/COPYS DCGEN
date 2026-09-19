@@ -1,0 +1,369 @@
+   ******************************************************************
+   * DCLGEN TABLE(IBMUSER.BANC_CLIENTE)                             *
+   *        LIBRARY(IBMUSER.DB2.DCLGEN(CLIENTE))                    *
+   *        LANGUAGE(COBOL)                                         *
+   *        NAMES(WP-CLIENTE)                                       *
+   *        STRUCTURE(WP-CLIENTE)                                   *
+   *        QUOTE                                                   *
+   * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+   ******************************************************************
+        EXEC SQL DECLARE IBMUSER.BANC_CLIENTE TABLE                  
+        ( NUM_CUENTA                     CHAR(10) NOT NULL,          
+          DNI                            CHAR(9) NOT NULL,           
+          NOMBRE                         VARCHAR(40) NOT NULL,       
+          APELLIDOS                      VARCHAR(60) NOT NULL,       
+          FECHA_ALTA                     DATE NOT NULL,              
+          ESTADO                         CHAR(1) NOT NULL            
+        ) END-EXEC.                                                  
+   ******************************************************************
+   * COBOL DECLARATION FOR TABLE IBMUSER.BANC_CLIENTE               *
+   ******************************************************************
+    01  WP-CLIENTE.                                                  
+   *                       NUM_CUENTA                                
+        10 WP-CLIENTE1          PIC X(10).                           
+   *                       DNI                                       
+        10 WP-CLIENTE2          PIC X(9).                            
+        10 WP-CLIENTE3.                                              
+   *                       NOMBRE LENGTH                             
+           49 WP-CLIENTE3-LEN   PIC S9(4) USAGE COMP.                
+   *                       NOMBRE                                    
+           49 WP-CLIENTE3-TEXT                                       
+              PIC X(40).                                             
+        10 WP-CLIENTE4.                                              
+   *                       APELLIDOS LENGTH                          
+           49 WP-CLIENTE4-LEN   PIC S9(4) USAGE COMP.                
+   *                       APELLIDOS                                 
+           49 WP-CLIENTE4-TEXT                                       
+              PIC X(60).                                             
+   *                       FECHA_ALTA     
+      01  WP-CLIENTE.                                                  
+    *                       NUM_CUENTA                                
+         10 WP-CLIENTE1          PIC X(10).                           
+    *                       DNI                                       
+         10 WP-CLIENTE2          PIC X(9).                            
+         10 WP-CLIENTE3.                                              
+    *                       NOMBRE LENGTH                             
+            49 WP-CLIENTE3-LEN   PIC S9(4) USAGE COMP.                
+    *                       NOMBRE                                    
+            49 WP-CLIENTE3-TEXT                                       
+               PIC X(40).                                             
+         10 WP-CLIENTE4.                                              
+    *                       APELLIDOS LENGTH                          
+            49 WP-CLIENTE4-LEN   PIC S9(4) USAGE COMP.                
+    *                       APELLIDOS                                 
+            49 WP-CLIENTE4-TEXT                                       
+               PIC X(60).                                             
+    *                       FECHA_ALTA                                
+         10 WP-CLIENTE5          PIC X(10).                           
+    *                       ESTADO                                    
+         10 WP-CLIENTE6          PIC X(1).                            
+    ******************************************************************
+    * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 6       *
+    ******************************************************************
+
+
+
+
+
+
+
+
+
+
+    ******************************************************************
+    * DCLGEN TABLE(IBMUSER.BANC_CUENTA)                              *
+    *        LIBRARY(IBMUSER.DB2.DCLGEN(CUENTA))                     *
+    *        LANGUAGE(COBOL)                                         *
+    *        NAMES(CD-CUENTA)                                        *
+    *        STRUCTURE(CD-CUENTA)                                    *
+    *        QUOTE                                                   *
+    * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+    ******************************************************************
+         EXEC SQL DECLARE IBMUSER.BANC_CUENTA TABLE                   
+         ( NUM_CUENTA                     CHAR(10) NOT NULL,          
+           TIPO_CUENTA                    CHAR(2) NOT NULL,           
+           SALDO                          DECIMAL(12, 2) NOT NULL,    
+           DIVISA                         CHAR(3) NOT NULL,           
+           LIMITE_DIARIO                  DECIMAL(12, 2) NOT NULL,    
+           FECHA_ULT_MOV                  DATE NOT NULL               
+         ) END-EXEC.                                                  
+    ******************************************************************
+    * COBOL DECLARATION FOR TABLE IBMUSER.BANC_CUENTA                *
+    ******************************************************************
+     01  CD-CUENTA.                                                   
+    *                       NUM_CUENTA                                
+         10 CD-CUENTA1           PIC X(10).                           
+    *                       TIPO_CUENTA                               
+         10 CD-CUENTA2           PIC X(2).                            
+    *                       SALDO                                     
+         10 CD-CUENTA3           PIC S9(10)V9(2) USAGE COMP-3.        
+    *                       DIVISA                                    
+         10 CD-CUENTA4           PIC X(3).                            
+    *                       LIMITE_DIARIO                             
+         10 CD-CUENTA5           PIC S9(10)V9(2) USAGE COMP-3.        
+    *                       FECHA_ULT_MOV                             
+         10 CD-CUENTA6           PIC X(10).                           
+    ******************************************************************
+    * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 6       *
+    ******************************************************************
+
+
+
+
+
+     ************************ Top of Data ******************************
+     ******************************************************************
+     * DCLGEN TABLE(IBMUSER.BANC_INGRESO)                             *
+     *        LIBRARY(IBMUSER.DB2.DCLGEN(INGRESO))                    *
+     *        LANGUAGE(COBOL)                                         *
+     *        NAMES(CL-INGRES)                                        *
+     *        STRUCTURE(CL-INGRES)                                    *
+     *        QUOTE                                                   *
+     * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+     ******************************************************************
+          EXEC SQL DECLARE IBMUSER.BANC_INGRESO TABLE                  
+          ( ID_INGRESO                     INTEGER NOT NULL,           
+            NUM_CUENTA                     CHAR(10) NOT NULL,          
+            FECHA_ING                      DATE NOT NULL,              
+            IMPORTE                        DECIMAL(10, 2) NOT NULL,    
+            FORMA_PAGO                     CHAR(2) NOT NULL,           
+            ORDENANTE                      VARCHAR(60),                
+            ESTADO                         CHAR(1) NOT NULL            
+          ) END-EXEC.                                                  
+     ******************************************************************
+     * COBOL DECLARATION FOR TABLE IBMUSER.BANC_INGRESO               *
+     ******************************************************************
+      01  CL-INGRES.                                                   
+     *                       ID_INGRESO                                
+          10 CL-INGRES1           PIC S9(9) USAGE COMP.                
+     *                       NUM_CUENTA                                
+          10 CL-INGRES2           PIC X(10).                           
+     *                       FECHA_ING                                 
+          10 CL-INGRES3           PIC X(10).                           
+     *                       IMPORTE                                   
+          10 CL-INGRES4           PIC S9(8)V9(2) USAGE COMP-3.         
+     *                       FORMA_PAGO                                
+          10 CL-INGRES5           PIC X(2).                            
+          10 CL-INGRES6.                                               
+     *                       ORDENANTE LENGTH                          
+             49 CL-INGRES6-LEN    PIC S9(4) USAGE COMP.                
+     *                       ORDENANTE                                 
+             49 CL-INGRES6-TEXT   PIC X(60).                           
+     *                       ESTADO                                    
+ 
+        10 CL-INGRES4           PIC S9(8)V9(2) USAGE COMP-3.         
+   *                       FORMA_PAGO                                
+        10 CL-INGRES5           PIC X(2).                            
+        10 CL-INGRES6.                                               
+   *                       ORDENANTE LENGTH                          
+           49 CL-INGRES6-LEN    PIC S9(4) USAGE COMP.                
+   *                       ORDENANTE                                 
+           49 CL-INGRES6-TEXT   PIC X(60).                           
+   *                       ESTADO                                    
+        10 CL-INGRES7           PIC X(1).                            
+   ******************************************************************
+   * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 7       *
+   ******************************************************************
+
+
+
+
+
+
+     ******************************************************************
+     * DCLGEN TABLE(IBMUSER.BANC_MOVIMIENTO)                          *
+     *        LIBRARY(IBMUSER.DB2.DCLGEN(MOVIMIEN))                   *
+     *        LANGUAGE(COBOL)                                         *
+     *        NAMES(CP)                                               *
+     *        STRUCTURE(CP-MOVI)                                      *
+     *        QUOTE                                                   *
+     * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+     ******************************************************************
+          EXEC SQL DECLARE IBMUSER.BANC_MOVIMIENTO TABLE               
+          ( ID_MOVIMIENTO                  INTEGER NOT NULL,           
+            NUM_CUENTA                     CHAR(10) NOT NULL,          
+            FECHA_MOV                      DATE NOT NULL,              
+            TIPO_MOV                       CHAR(2) NOT NULL,           
+            IMPORTE                        DECIMAL(12, 2) NOT NULL,    
+            SALDO_RESULT                   DECIMAL(12, 2) NOT NULL,    
+            CONCEPTO                       VARCHAR(40) NOT NULL        
+          ) END-EXEC.                                                  
+     ******************************************************************
+     * COBOL DECLARATION FOR TABLE IBMUSER.BANC_MOVIMIENTO            *
+     ******************************************************************
+      01  CP-MOVI.                                                     
+     *                       ID_MOVIMIENTO                             
+          10 CP1                  PIC S9(9) USAGE COMP.                
+     *                       NUM_CUENTA                                
+          10 CP2                  PIC X(10).                           
+     *                       FECHA_MOV                                 
+          10 CP3                  PIC X(10).                           
+     *                       TIPO_MOV                                  
+          10 CP4                  PIC X(2).                            
+     *                       IMPORTE                                   
+          10 CP5                  PIC S9(10)V9(2) USAGE COMP-3.        
+     *                       SALDO_RESULT                              
+          10 CP6                  PIC S9(10)V9(2) USAGE COMP-3.        
+          10 CP7.                                                      
+     *                       CONCEPTO LENGTH                           
+             49 CP7-LEN           PIC S9(4) USAGE COMP.                
+      
+             49 CP7-LEN           PIC S9(4) USAGE COMP.                
+     *                       CONCEPTO                                  
+             49 CP7-TEXT          PIC X(40).                           
+     ******************************************************************
+     * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 7       *
+     ******************************************************************
+ 
+
+
+
+
+  ******************************************************************
+  * DCLGEN TABLE(IBMUSER.BANC_OPCIONES)                            *
+  *        LIBRARY(IBMUSER.DB2.DCLGEN(OPCIONES))                   *
+  *        LANGUAGE(COBOL)                                         *
+  *        NAMES(CQ-OPCIONES)                                      *
+  *        STRUCTURE(CQ-OPCIONES)                                  *
+  *        QUOTE                                                   *
+  * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+  ******************************************************************
+       EXEC SQL DECLARE IBMUSER.BANC_OPCIONES TABLE                 
+       ( OPCION                         CHAR(2) NOT NULL,           
+         DESCRIPCION                    VARCHAR(60) NOT NULL,       
+         PROGRAMA_CICS                  CHAR(8) NOT NULL,           
+         TRANSACCION                    CHAR(4) NOT NULL,           
+         ACTIVA                         CHAR(1) NOT NULL            
+       ) END-EXEC.                                                  
+  ******************************************************************
+  * COBOL DECLARATION FOR TABLE IBMUSER.BANC_OPCIONES              *
+  ******************************************************************
+   01  CQ-OPCIONES.                                                 
+  *                       OPCION                                    
+       10 CQ-OPCIONES1         PIC X(2).                            
+       10 CQ-OPCIONES2.                                             
+  *                       DESCRIPCION LENGTH                        
+          49 CQ-OPCIONES2-LEN                                       
+             PIC S9(4) USAGE COMP.                                  
+  *                       DESCRIPCION                               
+          49 CQ-OPCIONES2-TEXT                                      
+             PIC X(60).                                             
+  *                       PROGRAMA_CICS                             
+       10 CQ-OPCIONES3         PIC X(8).                            
+  *                       TRANSACCION                               
+       10 CQ-OPCIONES4         PIC X(4).                            
+  *                       ACTIVA                                    
+       10 CQ-OPCIONES5         PIC X(1).                            
+  ******************************************************************
+  * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 5       *
+  ******************************************************************
+
+
+
+
+
+
+    ******************************************************************
+    * DCLGEN TABLE(IBMUSER.BANC_OTRAS_OPER)                          *
+    *        LIBRARY(IBMUSER.DB2.DCLGEN(OTRASOPE))                   *
+    *        LANGUAGE(COBOL)                                         *
+    *        NAMES(CK-OTRASOP)                                       *
+    *        STRUCTURE(CK-OTRASOP)                                   *
+    *        QUOTE                                                   *
+    * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+    ******************************************************************
+         EXEC SQL DECLARE IBMUSER.BANC_OTRAS_OPER TABLE               
+         ( ID_OPER                        INTEGER NOT NULL,           
+           NUM_CUENTA                     CHAR(10) NOT NULL,          
+           FECHA_OPER                     DATE NOT NULL,              
+           TIPO_OPER                      CHAR(3) NOT NULL,           
+           IMPORTE                        DECIMAL(12, 2),             
+           BENEFICIARIO                   VARCHAR(60),                
+           DETALLE                        VARCHAR(80),                
+           ESTADO                         CHAR(1) NOT NULL            
+         ) END-EXEC.                                                  
+    ******************************************************************
+    * COBOL DECLARATION FOR TABLE IBMUSER.BANC_OTRAS_OPER            *
+    ******************************************************************
+     01  CK-OTRASOP.                                                  
+    *                       ID_OPER                                   
+         10 CK-OTRASOP1          PIC S9(9) USAGE COMP.                
+    *                       NUM_CUENTA                                
+         10 CK-OTRASOP2          PIC X(10).                           
+    *                       FECHA_OPER                                
+         10 CK-OTRASOP3          PIC X(10).                           
+    *                       TIPO_OPER                                 
+         10 CK-OTRASOP4          PIC X(3).                            
+    *                       IMPORTE                                   
+         10 CK-OTRASOP5          PIC S9(10)V9(2) USAGE COMP-3.        
+         10 CK-OTRASOP6.                                              
+    *                       BENEFICIARIO LENGTH                       
+            49 CK-OTRASOP6-LEN   PIC S9(4) USAGE COMP.                
+    *                       BENEFICIARIO                              
+            49 CK-OTRASOP6-TEXT               
+                 PIC X(60).                                             
+           10 CK-OTRASOP7.                                              
+      *                       DETALLE LENGTH                            
+              49 CK-OTRASOP7-LEN   PIC S9(4) USAGE COMP.                
+      *                       DETALLE                                   
+              49 CK-OTRASOP7-TEXT                                       
+                 PIC X(80).                                             
+      *                       ESTADO                                    
+           10 CK-OTRASOP8          PIC X(1).                            
+      ******************************************************************
+      * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 8       *
+      ****************************************************************** 
+
+
+
+
+
+
+
+    ******************************************************************
+    * DCLGEN TABLE(IBMUSER.BANC_RETIRADA)                            *
+    *        LIBRARY(IBMUSER.DB2.DCLGEN(RETIRADA))                   *
+    *        LANGUAGE(COBOL)                                         *
+    *        NAMES(CM-RETIRADA)                                      *
+    *        STRUCTURE(CM-RETIRADA)                                  *
+    *        QUOTE                                                   *
+    * ... IS THE DCLGEN COMMAND THAT MADE THE FOLLOWING STATEMENTS   *
+    ******************************************************************
+         EXEC SQL DECLARE IBMUSER.BANC_RETIRADA TABLE                 
+         ( ID_RETIRADA                    INTEGER NOT NULL,           
+           NUM_CUENTA                     CHAR(10) NOT NULL,          
+           FECHA_RET                      DATE NOT NULL,              
+           IMPORTE                        DECIMAL(10, 2) NOT NULL,    
+           TIPO_DISP                      CHAR(2) NOT NULL,           
+           TERMINAL                       CHAR(4),                    
+           ESTADO                         CHAR(1) NOT NULL            
+         ) END-EXEC.                                                  
+    ******************************************************************
+    * COBOL DECLARATION FOR TABLE IBMUSER.BANC_RETIRADA              *
+    ******************************************************************
+     01  CM-RETIRADA.                                                 
+    *                       ID_RETIRADA                               
+         10 CM-RETIRADA1         PIC S9(9) USAGE COMP.                
+    *                       NUM_CUENTA                                
+         10 CM-RETIRADA2         PIC X(10).                           
+    *                       FECHA_RET                                 
+         10 CM-RETIRADA3         PIC X(10).                           
+    *                       IMPORTE                                   
+         10 CM-RETIRADA4         PIC S9(8)V9(2) USAGE COMP-3.         
+    *                       TIPO_DISP                                 
+         10 CM-RETIRADA5         PIC X(2).                            
+    *                       TERMINAL                                  
+         10 CM-RETIRADA6         PIC X(4).                            
+    *                       ESTADO                                    
+         10 CM-RETIRADA7         PIC X(1).                            
+    ******************************************************************
+    * THE NUMBER OF COLUMNS DESCRIBED BY THIS DECLARATION IS 7       * 
+    ******************************************************************
+
+
+
+ 
+
+
+ 
+ 
