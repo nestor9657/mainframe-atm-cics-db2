@@ -1,0 +1,12 @@
+--  SPUFI CREATE TABLESPACE                       
+    CREATE TABLESPACE CLIENTES                    
+      IN IBMUSER1                                 
+      USING STOGROUP IBMUSER1                     
+      ERASE  NO                                   
+      FREEPAGE 5                                  
+      PCTFREE 5                                   
+      BUFFERPOOL BP0                              
+      COMPRESS NO                                 
+      LOCKSIZE ANY                                
+      LOCKMAX SYSTEM                              
+      CLOSE YES;                                  
