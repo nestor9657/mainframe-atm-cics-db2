@@ -1,0 +1,15 @@
+//RUNTRN   JOB (IBMUSER),'RUN  TRANS02',CLASS=A,                 
+//             MSGCLASS=H,MSGLEVEL=(1,1)                         
+//STEP01   EXEC PGM=IKJEFT01,REGION=8M                           
+//STEPLIB  DD DSN=DSN910.SDSNLOAD,DISP=SHR                       
+//         DD DSN=IBMUSER.NESTOR.RUNLIB.LOAD,DISP=SHR            
+//SYSPRINT DD SYSOUT=*                                           
+//SYSTSPRT DD SYSOUT=*                                           
+//SYSOUT   DD SYSOUT=*                                           
+//SYSUDUMP DD SYSOUT=*                                           
+//SYSTSIN  DD *                                                  
+  DSN SYSTEM(DB9G)                                               
+  RUN PROGRAM( TRANS02) PLAN(TRANS02L)-                          
+      LIBRARY('IBMUSER.NESTOR.RUNLIB.LOAD')                      
+  END                                                            
+/*                                                               
