@@ -1,0 +1,70 @@
+//CICSDB2  JOB (IBMUSER),'CICSDB2',CLASS=A,MSGCLASS=H,             
+//             MSGLEVEL=(1,1),NOTIFY=&SYSUID                       
+//* ============================================================   
+//* COMPILACION COMPLETA DEL PROGRAMA BANC01 (CORREGIDO)           
+//* ============================================================   
+//*                                                                
+//* ------------------------------------------------------------   
+//* PASO 1: TRADUCIR CICS (OBLIGATORIO ANTES DE COBOL V6)          
+//* ------------------------------------------------------------   
+//TRANSLAT EXEC PGM=DFHECP1$,REGION=4M,                            
+//         PARM='COBOL'                                            
+//STEPLIB  DD DISP=SHR,DSN=DFH410.CICS.SDFHLOAD                    
+//SYSPRINT DD SYSOUT=*                                             
+//SYSPUNCH DD DISP=(NEW,PASS),DSN=&&CICSSRC,                       
+//            UNIT=SYSDA,SPACE=(TRK,(20,10))                       
+//SYSLIB   DD DISP=SHR,DSN=IBMUSER.NESTOR.COPYS                    
+//SYSIN    DD DISP=SHR,DSN=IBMUSER.NESTOR.FUENTES(BANC01)          
+//*                                                                
+//* ------------------------------------------------------------   
+//* PASO 2: COMPILAR COBOL + PRECOMPILAR DB2 INTEGRADO (COBOL V6)  
+//* ------------------------------------------------------------   
+//COBOL    EXEC PGM=IGYCRCTL,REGION=8M,                            
+//         PARM='RENT,RES,APOST,OBJECT,NODYNAM,LIB,TRUNC(BIN),SQL' 
+//STEPLIB  DD DISP=SHR,DSN=IGY420.SIGYCOMP                         
+//         DD DISP=SHR,DSN=DSN910.SDSNLOAD                         
+//SYSLIB   DD DISP=SHR,DSN=IBMUSER.NESTOR.COPYS                    
+//         DD DISP=SHR,DSN=IBMUSER.DB2.DCLGEN                      
+//         DD DISP=SHR,DSN=DFH410.CICS.SDFHCOB                     
+//SYSIN    DD DISP=(OLD,DELETE),DSN=&&CICSSRC                      
+//SYSLIN   DD DISP=(NEW,PASS),DSN=&&OBJ,                           
+//            UNIT=SYSDA,SPACE=(TRK,(20,10))                       
+//DBRMLIB  DD DISP=SHR,DSN=IBMUSER.NESTOR.DBRMLIB.DATA(BANC01)     
+//SYSPRINT DD SYSOUT=*                                             
+//SYSUT1   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                       
+//SYSUT2   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                       
+//SYSUT3   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                       
+//SYSUT4   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                       
+//SYSUT5   DD UNIT=SYSDA,SPACE=(TRK,(30,30))   
+ //SYSUT4   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                        
+//SYSUT5   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                        
+//SYSUT6   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                        
+//SYSUT7   DD UNIT=SYSDA,SPACE=(TRK,(30,30))                        
+//*                                                                 
+//* ------------------------------------------------------------    
+//* PASO 3: LINK-EDIT EXCLUSIVO PARA CICS + DB2                     
+//* ------------------------------------------------------------    
+//LKED     EXEC PGM=IEWL,REGION=4M,                                 
+//         PARM='MAP,LET,LIST,XREF,SIZE=(900K,128K)'                
+//SYSLIB   DD DISP=SHR,DSN=DFH410.CICS.SDFHLOAD                     
+//         DD DISP=SHR,DSN=DSN910.SDSNLOAD                          
+//         DD DISP=SHR,DSN=CEE.SCEELKED                             
+//SYSLIN   DD DISP=(OLD,DELETE),DSN=&&OBJ                           
+//         DD *                                                     
+/*                                                                  
+//SYSLMOD  DD DISP=SHR,DSN=IBMUSER.NESTOR.LOAD(BANC01)              
+//SYSPRINT DD SYSOUT=*                                              
+//*                                                                 
+//* ------------------------------------------------------------    
+//* PASO 4: BIND DEL PLAN (CORREGIDO CON SYSTSIN)                   
+//* ------------------------------------------------------------    
+//BINDPL   EXEC PGM=IKJEFT01,REGION=8M                              
+//STEPLIB  DD DSN=DSN910.SDSNLOAD,DISP=SHR                          
+//DBRMLIB  DD DISP=SHR,DSN=IBMUSER.NESTOR.DBRMLIB.DATA(BANC01)      
+//SYSPRINT DD SYSOUT=*                                              
+//SYSTSPRT DD SYSOUT=*                                              
+//SYSTSIN  DD *                                                     
+ DSN SYSTEM(DB9G)                                                   
+  BIND PLAN(BANC01L) MEMBER(BANC01) ACT(REP) RETAIN                 
+ END                                                                
+/*                                                                  
