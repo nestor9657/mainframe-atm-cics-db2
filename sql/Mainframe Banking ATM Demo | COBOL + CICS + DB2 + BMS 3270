@@ -1,0 +1,14 @@
+## Demo
+
+[![ATM Demo]  LINK-YOUTOBE   [https://www.youtube.com/watch?v=YOQfRqKIVkE]      
+
+Full walkthrough of the ATM application running on IBM z/OS:
+
+- Main banking menu (CICS transaction BA01)
+- Account balance inquiry
+- Cash withdrawal
+- Cash deposit
+- Transaction history
+- DB2 data persistence
+
+**Tech stack:** COBOL · CICS · DB2 · BMS 3270 · JCL
