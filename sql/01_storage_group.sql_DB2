@@ -1,0 +1,4 @@
+-- SPUFI CREATE STOGROUP        
+  CREATE STOGROUP IBMUSER1      
+    VOLUMES (SBSYS1)            
+     VCAT  IBMUSER1;            
